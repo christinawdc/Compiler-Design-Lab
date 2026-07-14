@@ -48,12 +48,6 @@ int main() {
         else if (isspace(ch) && j != 0)
             buffer[j] = '\0';
             j = 0;
-
-            if (isKeyword(buffer)) {
-                printf("%s is a keyword\n", buffer);
-            } else {
-                printf("%s is an identifier\n", buffer);
-            }
         }
     }
 
