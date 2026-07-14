@@ -66,7 +66,7 @@ int main() {
             buffer[j++] = ch;
         }
         // Check for delimiters (space, newline, tab)
-        else if ((ch == ' ' || ch == '\n' || ch == '\t') && j != 0) {
+        else if (isspace(ch) && j != 0)
             buffer[j] = '\0';
             j = 0;
 
