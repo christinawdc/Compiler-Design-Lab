@@ -51,16 +51,11 @@ int main() {
         }
     }
 
-    // Handle any leftover token in the buffer at the end of the file
+    // Process leftover token at End-Of-File
     if (j != 0) {
         buffer[j] = '\0';
-        if (isKeyword(buffer)) {
-            printf("%s is a keyword\n", buffer);
-        } else {
-            printf("%s is an identifier\n", buffer);
-        }
+        checkBuffer(buffer);
     }
-
     fclose(fp);
     return 0;
 }
