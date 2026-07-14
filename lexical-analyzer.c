@@ -4,8 +4,8 @@
 #include <ctype.h>
 
 // Function to check if a string is a keyword
-int isKeyword(char buffer[]) {
-    // Array of standard C keywords (expandable up to 32 as per requirements)
+int checkBuffer(char buffer[]) {
+    // Array of standard C keywords 
     char keywords[32][10] = {
         "auto", "break", "case", "char", "const", "continue", "default", "do",
         "double", "else", "enum", "extern", "float", "for", "goto", "if",
@@ -15,24 +15,20 @@ int isKeyword(char buffer[]) {
     
     for (int i = 0; i < 32; i++) {
         if (strcmp(keywords[i], buffer) == 0) {
-            return 1; // It is a keyword
+            printf("%s is a keyword\n", buffer);
+            return;
         }
     }
-    return 0; // It is not a keyword
+    printf("%s is an identifier\n",buffer);
 }
 
 int main() {
-    char ch;
-    char buffer[15];
-    char operators[] = "+-*/%=";
-    FILE *fp;
+    char ch, buffer[15], operators[] = "+-*/%=";
+    FILE *fp= fopen("input.txt", "r");;
     int j = 0;
 
-    // Opening the input file in read mode
-    fp = fopen("input.txt", "r");
-
-    if (fp == NULL) {
-        printf("Error while opening the file. Ensure 'input.txt' exists.\n");
+    if (!fp) {
+        printf("Error opening file.\n");
         exit(0);
     }
 
