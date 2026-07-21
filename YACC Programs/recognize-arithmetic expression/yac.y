@@ -3,41 +3,37 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-
-// Declare yylex and yyerror to prevent implicit declaration compiler errors
-int yylex(void);
-void yyerror(const char *s);
+int yylex();
+int yyerror(const char *s);
 %}
-
-%token DIGIT ID NL 
-%left '+' '-'  //order and precedence of operators
+%token DIGIT ID NL
+%left '+' '-'
 %left '*' '/'
-
 %%
-// Top-level start rule requiring a newline at the end
-stmt: exp NL { 
-        printf("Valid expression\n"); 
-        exit(0); 
-      }
-    ;
-
-exp : exp '+' exp 
-    | exp '-' exp 
-    | exp '*' exp 
-    | exp '/' exp 
-    | '(' exp ')' 
-    | ID 
-    | DIGIT
-    ;
-%%
-
-int main(void) {
-    printf("Enter the exp: "); 
-    yyparse(); / it will initiate the yacc program.Calls the parser to read and process the input.
-    return 0;
+/* Allows both standard expressions (a+b) AND assignments (c=a+b) */
+stmt: ID '=' exp NL {
+printf("\nExpression is valid\n");
+exit(0);
 }
+| exp NL {
+printf("\nExpression is valid\n");
 
-void yyerror(const char *msg) {
-    printf("Invalid string\n"); // This function is called when there is a syntax error in the input. It currently just prints "Invalid string".
-    exit(0);
+exit(0);
+};
+exp: exp '+' exp
+| exp '-' exp
+| exp '*' exp
+| exp '/' exp
+| '(' exp ')'
+| ID
+| DIGIT;
+%%
+int main() {
+printf("Enter the exp: ");
+yyparse();
+return 0;
+}
+int yyerror(const char *s) {
+printf("\nInvalid Expression\n");
+exit(0);
 }
